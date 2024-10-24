@@ -2,7 +2,6 @@ package com.onlinebookstore.book_store.service;
 
 import com.onlinebookstore.book_store.entity.Book;
 import com.onlinebookstore.book_store.repository.BookRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
