@@ -5,7 +5,6 @@ import com.onlinebookstore.book_store.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,7 +61,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id,@RequestBody Author author) {
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
         try {
             authorService.deleteAuthor(id);
             return new ResponseEntity<>(HttpStatus.OK);
