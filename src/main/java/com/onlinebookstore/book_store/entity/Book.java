@@ -1,5 +1,7 @@
 package com.onlinebookstore.book_store.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,10 +17,17 @@ public class Book {
     private String bookName;
     private String availability;
     private float price;
-    private int discountId;
-    private int authorId;
-    private int publisherId;
-    private int categoryId;
+    private Long discountId;
+
+    @ManyToOne
+    @JoinColumn(name = "authorId", nullable = false)
+
+    private Author author;
+
+    private Long publisherId;
+    private Long categoryId;
+
+
 
 
 
