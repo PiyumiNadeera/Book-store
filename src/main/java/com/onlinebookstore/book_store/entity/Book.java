@@ -19,14 +19,12 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "authorId", nullable = false)
-
     private Author author;
 
     private Long publisherId;
-    private Long categoryId;
 
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "categoryId", nullable = false)
+    private Category category;
 
 }
