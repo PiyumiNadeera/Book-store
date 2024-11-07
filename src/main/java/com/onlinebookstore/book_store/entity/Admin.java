@@ -1,7 +1,10 @@
 package com.onlinebookstore.book_store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "administrators")
@@ -14,5 +17,9 @@ public class Admin {
     private String adminEmail;
     private String adminUsername;
     private String adminPassword;
+
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<Order> orders;
 
 }
