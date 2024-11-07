@@ -41,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
             existingOrder.setStatus(order.getStatus());
             existingOrder.setOrderDate(order.getOrderDate());
             existingOrder.setCustomerId(order.getCustomerId());
-            existingOrder.setAdminId(order.getAdminId());
 
             orderRepository.save(existingOrder);
         }

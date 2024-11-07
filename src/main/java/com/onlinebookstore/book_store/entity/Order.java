@@ -18,5 +18,9 @@ public class Order {
     private String status;
     private Date orderDate;
     private String customerId;
-    private String adminId;
+
+    @ManyToOne
+    @JoinColumn(name = "adminId",nullable = false)
+    private Admin admin;
+
 }
