@@ -1,7 +1,10 @@
 package com.onlinebookstore.book_store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "publications")
@@ -13,4 +16,8 @@ public class Publisher {
     private Long publisherId;
     private String publisherName;
     private String publisherAddress;
+
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Book> books;
 }

@@ -15,13 +15,18 @@ public class Book {
     private String bookName;
     private String availability;
     private float price;
-    private Long discountId;
+
+    @ManyToOne
+    @JoinColumn(name = "discountId",nullable = true)
+    private Discount discount;
 
     @ManyToOne
     @JoinColumn(name = "authorId", nullable = false)
     private Author author;
 
-    private Long publisherId;
+    @ManyToOne
+    @JoinColumn(name = "publisherId",nullable = false)
+    private Publisher publisher;
 
     @ManyToOne
     @JoinColumn(name = "categoryId", nullable = false)

@@ -30,6 +30,15 @@ public class DiscountController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Discount> findDiscountsById(@PathVariable Long id){
+        try{
+            return new ResponseEntity<>(discountService.getDiscountById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Void> addNewDiscounts(@RequestBody Discount discount){
         try {

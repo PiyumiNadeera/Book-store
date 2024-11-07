@@ -1,9 +1,11 @@
 package com.onlinebookstore.book_store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="discounts")
@@ -11,12 +13,19 @@ import java.util.Date;
 public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long discountId;
 
     private String discountType;
     private float discountValue;
     private Date discountStartDate;
     private Date discountEndDate;
-    private Long bookId;
+
+    @OneToMany(mappedBy = "discount")
+    @JsonIgnore
+    private List<Book> books;
+
+
+
+
 
 }

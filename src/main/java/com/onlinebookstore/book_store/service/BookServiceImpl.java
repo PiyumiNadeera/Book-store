@@ -25,6 +25,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book addBook(Book book){
+
         return bookRepository.save(book);
     }
 
@@ -36,11 +37,6 @@ public class BookServiceImpl implements BookService {
             existingBook.setBookName(book.getBookName());
             existingBook.setAvailability(book.getAvailability());
             existingBook.setPrice(book.getPrice());
-            //existingBook.setAuthor(book.getAuthor());
-            existingBook.setDiscountId(book.getDiscountId());
-            //existingBook.setCategory(book.getCategory());
-            existingBook.setPublisherId(book.getPublisherId());
-
             return bookRepository.save(existingBook);
         }
         return null;

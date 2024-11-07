@@ -23,6 +23,11 @@ public class DiscountServiceImpl implements DiscountService{
     }
 
     @Override
+    public Discount getDiscountById(Long id){
+        return discountRepository.findById(id).orElseThrow(null);
+    }
+
+    @Override
     public void addDiscounts(Discount discount){
         discountRepository.save(discount);
     }
