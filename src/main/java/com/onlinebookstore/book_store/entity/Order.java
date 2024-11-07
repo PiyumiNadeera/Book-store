@@ -17,7 +17,10 @@ public class Order {
     private float price;
     private String status;
     private Date orderDate;
-    private String customerId;
+
+    @ManyToOne
+    @JoinColumn(name = "customerId",nullable = false)
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "adminId",nullable = false)
