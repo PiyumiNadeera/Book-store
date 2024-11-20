@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+//Create this as the second class
+
 @Service
 public class AdminDetailsServiceImpl implements UserDetailsService {
 
@@ -18,7 +20,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
-        Admin admin = adminRepository.findByUsername(username).orElse(null);
+        Admin admin = adminRepository.findByAdminUsername(username).orElse(null);
 
         if(admin == null){
             throw new UsernameNotFoundException("User not found with the given username: " + username);

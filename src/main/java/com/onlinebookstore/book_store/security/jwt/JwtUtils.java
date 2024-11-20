@@ -1,6 +1,7 @@
 package com.onlinebookstore.book_store.security.jwt;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@SuppressWarnings("deprecation")
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -25,28 +27,27 @@ public class JwtUtils {
     @Value("${jwt_expiration}")
     private int jwtExpiration;
 
-    public String generateJwtToken(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        Map<String,Object> claims = new HashMap<>();
-        claims.put("username", userDetails.getUsername());
-        claims.put("issuedAt",new Date());
-        claims.put("expiration", new Date(new Date().getTime() + jwtExpiration));
+    public String generateJwtToken(Authentication authentication){
+        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal(); //Get the returned user details from the object
 
         return Jwts.builder()
-                .claims(claims)
-                .signWith(key())
+                .setSubject(userPrincipal.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime()+jwtExpiration))
+                .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public SecretKey key(){
-        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes());
+
+    public Key key(){
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecretKey));
     }
 
 
     public boolean validateJwtToken(String authToken){
         try{
-            Jwts.parser().verifyWith(key()).build().parse(authToken);
+            Jwts.parser().setSigningKey(key()).build().parse(authToken);
             return true;
         }catch(MalformedJwtException e){
             logger.error("Invalid JWT token");
@@ -61,7 +62,7 @@ public class JwtUtils {
     }
 
     public String getUsernameFromJwtToken(String authToken){
-        return Jwts.parser().verifyWith(key()).build().parseSignedClaims(authToken).getPayload().getSubject();
+        return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(authToken).getBody().getSubject();
     }
 
 }
