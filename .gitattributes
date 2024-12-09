@@ -1,2 +1,6 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+# Ensure text files use LF in the repository and convert to CRLF on checkout for Windows
+* text=auto
+
