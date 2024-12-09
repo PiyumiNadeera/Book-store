@@ -9,7 +9,7 @@ import java.util.List;
 public interface PublisherService {
     List<Publisher> getAllPublishers();
     Publisher getPublisherById(Long id);
-    void addPublisher(Publisher publisher);
+    Publisher addPublisher(Publisher publisher);
     void updatePublisher(Long id, Publisher publisher);
     void deletePublisher(Long id);
 }

@@ -1,7 +1,8 @@
 package com.onlinebookstore.book_store.service;
 
-import com.onlinebookstore.book_store.entity.Book;
-import com.onlinebookstore.book_store.repository.BookRepository;
+import com.onlinebookstore.book_store.entity.*;
+import com.onlinebookstore.book_store.payloads.requests.BookRequests;
+import com.onlinebookstore.book_store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,14 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
+    @Autowired
+    private DiscountRepository discountRepository;
 
     @Override
     public List<Book> getAllBooks(){
@@ -24,7 +33,54 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book addBook(Book book){
+    public Book addBook(BookRequests bookRequests){
+        Author author;
+        Category category;
+        Publisher publisher;
+        Discount discount;
+
+        if(bookRequests.getNewAuthor()!=null){
+            author = authorRepository.save(bookRequests.getNewAuthor());
+        }else if(bookRequests.getAuthor()!=null){
+            author = authorRepository.findById(bookRequests.getAuthor()).orElse(null);
+        }else{
+            return null;
+        }
+
+        if(bookRequests.getNewCategory()!=null){
+            category = categoryRepository.save(bookRequests.getNewCategory());
+        }else if(bookRequests.getCategory()!=null){
+            category = categoryRepository.findById(bookRequests.getCategory()).orElse(null);
+        }else{
+            return null;
+        }
+
+        if(bookRequests.getNewPublisher()!=null){
+            publisher = publisherRepository.save(bookRequests.getNewPublisher());
+        }else if(bookRequests.getPublisher()!=null){
+            publisher = publisherRepository.findById(bookRequests.getPublisher()).orElse(null);
+        }else {
+            return null;
+        }
+
+        if(bookRequests.getNewDiscount()!=null){
+            discount = discountRepository.save(bookRequests.getNewDiscount());
+        }else if(bookRequests.getDiscount()!=null){
+            discount = discountRepository.findById(bookRequests.getDiscount()).orElse(null);
+        }else{
+            return null;
+        }
+
+        Book book = new Book();
+        book.setBookName(bookRequests.getBookName());
+        book.setBookImage(bookRequests.getBookImage());
+        book.setStockCount(bookRequests.getStockCount());
+        book.setPrice(bookRequests.getPrice());
+        book.setAuthor(author);
+        book.setCategory(category);
+        book.setPublisher(publisher);
+        book.setDiscount(discount);
+
 
         return bookRepository.save(book);
     }
@@ -35,7 +91,8 @@ public class BookServiceImpl implements BookService {
 
         if(existingBook != null){
             existingBook.setBookName(book.getBookName());
-            existingBook.setAvailability(book.getAvailability());
+            existingBook.setBookImage(book.getBookImage());
+            existingBook.setStockCount(book.getStockCount());
             existingBook.setPrice(book.getPrice());
             return bookRepository.save(existingBook);
         }

@@ -15,9 +15,16 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long discountId;
 
+    @Column(nullable = false)
     private String discountType;
+
+    @Column(nullable = false)
     private float discountValue;
+
+    @Column(nullable = false)
     private Date discountStartDate;
+
+    @Column(nullable = false)
     private Date discountEndDate;
 
     @OneToMany(mappedBy = "discount")
