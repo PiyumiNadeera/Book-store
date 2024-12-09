@@ -40,10 +40,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createAuthor(@RequestBody Author author) {
+    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
         try {
-            authorService.addAuthor(author);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(authorService.addAuthor(author),HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

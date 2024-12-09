@@ -15,7 +15,11 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long authorId;
+
+    @Column(nullable = false)
     private String authorName;
+
+    @Column(nullable = false)
     private String bio;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)

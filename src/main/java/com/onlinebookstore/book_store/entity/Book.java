@@ -3,6 +3,8 @@ package com.onlinebookstore.book_store.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.File;
+
 @Entity
 @Table(name = "books")
 @Data
@@ -12,8 +14,15 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookId;
 
+    @Column(nullable = false)
     private String bookName;
-    private String availability;
+
+    private String bookImage;
+
+    @Column(nullable = false)
+    private int stockCount;
+
+    @Column(nullable = false)
     private float price;
 
     @ManyToOne
@@ -31,5 +40,6 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
+
 
 }

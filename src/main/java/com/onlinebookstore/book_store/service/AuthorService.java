@@ -10,7 +10,7 @@ public interface AuthorService {
 
     List<Author> getAllAuthors();
     Author getAuthorById(Long id);
-    void addAuthor(Author author);
+    Author addAuthor(Author author);
     void updateAuthor(Long id, Author author);
     void deleteAuthor(Long id);
 

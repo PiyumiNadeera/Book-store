@@ -47,7 +47,7 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String authToken){
         try{
-            Jwts.parser().setSigningKey(key()).build().parse(authToken);
+            Jwts.parser().setSigningKey(key()).build().parseClaimsJws(authToken);
             return true;
         }catch(MalformedJwtException e){
             logger.error("Invalid JWT token");

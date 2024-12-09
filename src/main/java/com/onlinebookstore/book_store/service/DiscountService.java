@@ -9,7 +9,7 @@ import java.util.List;
 public interface DiscountService {
     List<Discount> getAllDiscounts();
     Discount getDiscountById(Long id);
-    void addDiscounts(Discount discount);
+    Discount addDiscounts(Discount discount);
     void updateDiscounts(Long id,Discount discount);
     void removeDiscounts(Long id);
 
